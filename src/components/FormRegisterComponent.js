@@ -1,5 +1,6 @@
 import "./FormRegisterComponent.css"
 import {useState} from "react"
+import liff from '@line/liff'
 
 const FormRegisterComponent = ()=>{
     const[userName, setUserName] = useState("")
@@ -47,6 +48,16 @@ const FormRegisterComponent = ()=>{
             setErrorUserPhoneNumber("รูปแบบไม่ถูกต้อง")
             setUserPhoneNumberColor("red")
         }
+    }
+
+    const initLine = ()=>{
+        liff.init({liffId:"2001224156-kwr9NAEL"}, ()=>{
+            if (liff.isLoggedIn()) {
+                
+            }else{
+                liff.login()
+            }
+        },err => console.error(err))
     }
 
     return (
