@@ -79,8 +79,7 @@ const FormRegisterComponent = ()=>{
     async function main() {
         await liff.init({ liffId: "2001224156-kwr9NAEL"})
         if(liff.isLoggedIn()){
-            document.getElementById("user-line-id-input").value = profile.userId
-            setUserLineId = getUserProfile()
+            setUserLineId(getUserProfile())
             document.getElementById("user-line-id-input").value = userLineId
         }else{
           liff.login()
