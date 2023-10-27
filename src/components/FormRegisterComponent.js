@@ -73,7 +73,7 @@ const FormRegisterComponent = ()=>{
 
     async function getUserProfile() {
         const profile = await liff.getProfile()
-        document.getElementById("user-line-id-input").value(profile.userId)
+        document.getElementById("user-line-id-input").value = profile.userId
         return profile.userId
       }
 
