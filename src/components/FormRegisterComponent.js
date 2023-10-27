@@ -72,7 +72,7 @@ const FormRegisterComponent = ()=>{
             <form className='form' id='form' onSubmit={validateForm}>
                 <div className='form-control' id='user-line-id'>
                     <label>Line User ID</label>
-                    <input type='text' id='user-line-id-input'/>
+                    <p id="user-line-id-input"><b></b></p>
                 </div>
                 <div className='form-control' id='user-name'>
                     <label>ชื่อ</label>
