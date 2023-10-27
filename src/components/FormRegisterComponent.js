@@ -1,12 +1,13 @@
 import "./FormRegisterComponent.css"
 import {useState} from "react"
 import liff from '@line/liff'
+import axios from "axios"
 
 const FormRegisterComponent = ()=>{
     const[userName, setUserName] = useState("")
     const[userSurname, setUserSurname] = useState("")
     const[userId, setUserId] = useState("")
-    const[userUserPhoneNumber, setUserPhoneNumber] = useState("")
+    const[userPhoneNumber, setUserPhoneNumber] = useState("")
 
     const[errorUserName, setErrorUserName] = useState("")
     const[errorUserSurname, setErrorUserSurname] = useState("")
@@ -41,18 +42,37 @@ const FormRegisterComponent = ()=>{
             setErrorUserId("รูปแบบไม่ถูกต้อง")
             setUserIdColor("red")
         }
-        if(userUserPhoneNumber.match(/^0[0-9]{9}$/)){
+        if(userPhoneNumber.match(/^0[0-9]{9}$/)){
             setErrorUserPhoneNumber("")
             setUserPhoneNumberColor("green")
         }else{
             setErrorUserPhoneNumber("รูปแบบไม่ถูกต้อง")
             setUserPhoneNumberColor("red")
         }
+        if(userName.replace(/[^A-Za-z]/ig, '') && userSurname.replace(/[^A-Za-z]/ig, '') && userId.length === 5 && userPhoneNumber.match(/^0[0-9]{9}$/)){
+            const line_id = getUserProfile()
+            console.log(userPhoneNumber)
+            const data = {
+                Line_ID: line_id,
+                ID: userId,
+                Name: userName,
+                Surname: userSurname,
+                Phone_Number: userPhoneNumber
+            }
+            axios.post("https://sheet.best/api/sheets/5918aa35-7d94-406c-ad28-a665ddffeade", data).then((res)=>{
+            console.log(res)
+            setUserName("")
+            setUserSurname("")
+            setUserId("")
+            setUserPhoneNumber("")
+        })
+        }
     }
 
     async function getUserProfile() {
-        let profile = await liff.getProfile()
+        const profile = await liff.getProfile()
         document.getElementById("user-line-id-input").append(profile.userId)
+        return profile.userId
       }
 
     async function main() {
@@ -60,7 +80,7 @@ const FormRegisterComponent = ()=>{
         if(liff.isLoggedIn()){
           getUserProfile()
         }else{
-          liff.login()
+          //liff.login()
         }
       }
     
@@ -91,7 +111,7 @@ const FormRegisterComponent = ()=>{
                 </div>
                 <div className='form-control' id='user-phone-number'>
                     <label>เบอร์โทรศัพท์</label>
-                    <input type='number'value={userUserPhoneNumber} onChange={(e)=>setUserPhoneNumber(e.target.value)} style={{borderColor:userPhoneNumberColor}}/>
+                    <input type='number'value={userPhoneNumber} onChange={(e)=>setUserPhoneNumber(e.target.value)} style={{borderColor:userPhoneNumberColor}}/>
                     <small style={{color:userPhoneNumberColor}}>{errorUserPhoneNumber}</small>
                 </div>
                 <button type='submit' id='register-btn'>ลงทะเบียน</button>
