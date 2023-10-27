@@ -50,15 +50,20 @@ const FormRegisterComponent = ()=>{
         }
     }
 
-    const initLine = ()=>{
-        liff.init({liffId:"2001224156-kwr9NAEL"}, ()=>{
-            if (liff.isLoggedIn()) {
-                
-            }else{
-                liff.login()
-            }
-        },err => console.error(err))
-    }
+    async function getUserProfile() {
+        let profile = await liff.getProfile()
+        document.getElementById("user-line-id").append(profile.userId)
+      }
+
+    async function main() {
+        await liff.init({ liffId: "2001224156-kwr9NAEL"})
+        document.getElementById("isLoggedIn").append(liff.isLoggedIn())
+        if(liff.isLoggedIn()){
+          getUserProfile()
+        }else{
+          liff.login()
+        }
+      }
 
     return (
         <div className='container'>
