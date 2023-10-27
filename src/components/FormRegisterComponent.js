@@ -46,7 +46,6 @@ const FormRegisterComponent = ()=>{
         }else{
             setErrorUserPhoneNumber("รูปแบบไม่ถูกต้อง")
             setUserPhoneNumberColor("red")
-            /*--*/
         }
     }
 
@@ -54,6 +53,10 @@ const FormRegisterComponent = ()=>{
         <div className='container'>
             <h2>แบบฟอร์มลงทะเบียน</h2>
             <form className='form' id='form' onSubmit={validateForm}>
+                <div className='form-control' id='user-line-id'>
+                    <label>Line User ID</label>
+                    <input type='text'/>
+                </div>
                 <div className='form-control' id='user-name'>
                     <label>ชื่อ</label>
                     <input type='text' value={userName} onChange={(e)=>setUserName(e.target.value)} style={{borderColor:userNameColor}}/>
