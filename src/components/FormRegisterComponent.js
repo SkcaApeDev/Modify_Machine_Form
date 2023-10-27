@@ -69,7 +69,7 @@ const FormRegisterComponent = ()=>{
         }
     }
 
-    const getUserLineId = getUserProfile()
+    
 
     async function getUserProfile() {
         const profile = await liff.getProfile()
@@ -79,7 +79,7 @@ const FormRegisterComponent = ()=>{
     async function main() {
         await liff.init({ liffId: "2001224156-kwr9NAEL"})
         if(liff.isLoggedIn()){
-          setUserLineId(getUserLineId)
+            const getUserLineId = getUserProfile()
         }else{
           liff.login()
         }
@@ -93,7 +93,7 @@ const FormRegisterComponent = ()=>{
             <form className='form' id='form' onSubmit={validateForm}>
                 <div className='form-control' id='user-line-id'>
                     <label>Line User ID</label>
-                    <p id="user-line-id-input" value={userLineId}><b></b></p>
+                    <p id="user-line-id-input"><b>{getUserLineId}</b></p>
                 </div>
                 <div className='form-control' id='user-name'>
                     <label>ชื่อ</label>
