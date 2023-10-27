@@ -108,12 +108,12 @@ const FormRegisterComponent = ()=>{
                 </div>
                 <div className='form-control' id='user-id'>
                     <label>รหัสผนักงาน</label>
-                    <input type='number'value={userId} onChange={(e)=>setUserId(e.target.value)} style={{borderColor:userIdColor}}/>
+                    <input type='text'value={userId} onChange={(e)=>setUserId(e.target.value)} style={{borderColor:userIdColor}}/>
                     <small style={{color:userIdColor}}>{errorUserId}</small>
                 </div>
                 <div className='form-control' id='user-phone-number'>
                     <label>เบอร์โทรศัพท์</label>
-                    <input type='number'value={userPhoneNumber} onChange={(e)=>setUserPhoneNumber(e.target.value)} style={{borderColor:userPhoneNumberColor}}/>
+                    <input type='text'value={userPhoneNumber} onChange={(e)=>setUserPhoneNumber(e.target.value)} style={{borderColor:userPhoneNumberColor}}/>
                     <small style={{color:userPhoneNumberColor}}>{errorUserPhoneNumber}</small>
                 </div>
                 <button type='submit' id='register-btn'>ลงทะเบียน</button>
