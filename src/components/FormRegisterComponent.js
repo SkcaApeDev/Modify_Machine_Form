@@ -80,7 +80,7 @@ const FormRegisterComponent = ()=>{
         if(liff.isLoggedIn()){
           getUserProfile()
         }else{
-          //liff.login()
+          liff.login()
         }
       }
     
