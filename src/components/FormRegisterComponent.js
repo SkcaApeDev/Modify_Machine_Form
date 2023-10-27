@@ -52,18 +52,19 @@ const FormRegisterComponent = ()=>{
 
     async function getUserProfile() {
         let profile = await liff.getProfile()
-        document.getElementById("user-line-id").append(profile.userId)
+        document.getElementById("user-line-id-input").append(profile.userId)
       }
 
     async function main() {
         await liff.init({ liffId: "2001224156-kwr9NAEL"})
-        document.getElementById("isLoggedIn").append(liff.isLoggedIn())
         if(liff.isLoggedIn()){
           getUserProfile()
         }else{
           liff.login()
         }
       }
+    
+    main()
 
     return (
         <div className='container'>
@@ -71,7 +72,7 @@ const FormRegisterComponent = ()=>{
             <form className='form' id='form' onSubmit={validateForm}>
                 <div className='form-control' id='user-line-id'>
                     <label>Line User ID</label>
-                    <input type='text'/>
+                    <input type='text' id='user-line-id-input'/>
                 </div>
                 <div className='form-control' id='user-name'>
                     <label>ชื่อ</label>
