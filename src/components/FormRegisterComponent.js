@@ -4,6 +4,8 @@ import liff from '@line/liff'
 import axios from "axios"
 
 const FormRegisterComponent = ()=>{
+
+    const[userLineId, setUserLineId] = useState("")
     const[userName, setUserName] = useState("")
     const[userSurname, setUserSurname] = useState("")
     const[userId, setUserId] = useState("")
@@ -50,10 +52,9 @@ const FormRegisterComponent = ()=>{
             setUserPhoneNumberColor("red")
         }
         if(userName.replace(/[^A-Za-z]/ig, '') && userSurname.replace(/[^A-Za-z]/ig, '') && userId.length === 5 && userPhoneNumber.match(/^0[0-9]{9}$/)){
-            const line_id = getUserProfile()
             console.log(userPhoneNumber)
             const data = {
-                Line_ID: line_id,
+                Line_ID: userLineId,
                 ID: userId,
                 Name: userName,
                 Surname: userSurname,
@@ -61,6 +62,7 @@ const FormRegisterComponent = ()=>{
             }
             axios.post("https://sheet.best/api/sheets/5918aa35-7d94-406c-ad28-a665ddffeade", data).then((res)=>{
             console.log(res)
+            setUserLineId("")
             setUserName("")
             setUserSurname("")
             setUserId("")
@@ -71,14 +73,14 @@ const FormRegisterComponent = ()=>{
 
     async function getUserProfile() {
         const profile = await liff.getProfile()
-        document.getElementById("user-line-id-input").append(profile.userId)
+        document.getElementById("user-line-id-input").value(profile.userId)
         return profile.userId
       }
 
     async function main() {
         await liff.init({ liffId: "2001224156-kwr9NAEL"})
         if(liff.isLoggedIn()){
-          getUserProfile()
+          setUserLineId = getUserProfile()
         }else{
           //liff.login()
         }
