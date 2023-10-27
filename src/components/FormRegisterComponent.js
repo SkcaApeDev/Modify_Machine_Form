@@ -4,6 +4,7 @@ import liff from '@line/liff'
 import axios from "axios"
 
 const FormRegisterComponent = ()=>{
+    const[userLineId, setUserLineId] = useState("")
     const[userName, setUserName] = useState("")
     const[userSurname, setUserSurname] = useState("")
     const[userId, setUserId] = useState("")
@@ -50,10 +51,9 @@ const FormRegisterComponent = ()=>{
             setUserPhoneNumberColor("red")
         }
         if(userName.replace(/[^A-Za-z]/ig, '') && userSurname.replace(/[^A-Za-z]/ig, '') && userId.length === 5 && userPhoneNumber.match(/^0[0-9]{9}$/)){
-            const line_id = getUserProfile()
             console.log(userPhoneNumber)
             const data = {
-                Line_ID: line_id,
+                Line_ID: getUserLineId,
                 ID: userId,
                 Name: userName,
                 Surname: userSurname,
@@ -69,9 +69,10 @@ const FormRegisterComponent = ()=>{
         }
     }
 
+    const getUserLineId = getUserProfile()
+
     async function getUserProfile() {
         const profile = await liff.getProfile()
-        document.getElementById("user-line-id-input").append(profile.userId)
         return profile.userId
       }
 
@@ -92,7 +93,7 @@ const FormRegisterComponent = ()=>{
             <form className='form' id='form' onSubmit={validateForm}>
                 <div className='form-control' id='user-line-id'>
                     <label>Line User ID</label>
-                    <p id="user-line-id-input"><b></b></p>
+                    <p id="user-line-id-input" value={getUserLineId}><b></b></p>
                 </div>
                 <div className='form-control' id='user-name'>
                     <label>ชื่อ</label>
