@@ -72,9 +72,9 @@ const FormRegisterComponent = ()=>{
         <div className='container'>
             <h2>แบบฟอร์มลงทะเบียน</h2>
             <form className='form' id='form' onSubmit={validateForm}>
-                <div className='form-control' id='user-line-id '>
+                <div className='form-control' id='user-line-id'>
                     <label>Line ID</label>
-                    <input type='text'></input>
+                    <input type='text' id="user-line-id-input" value={userLineId} readOnly />
                 </div>
                 <div className='form-control' id='user-name'>
                     <label>ชื่อ</label>
