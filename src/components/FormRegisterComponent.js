@@ -1,10 +1,11 @@
 import "./FormRegisterComponent.css"
-import {useState} from "react"
+import {useState, useEffect} from "react"
 import liff from '@line/liff'
 import axios from "axios"
 
 const FormRegisterComponent = ()=>{
 
+    const [userLineId, setUserLineId] = useState("")
     const[userName, setUserName] = useState("")
     const[userSurname, setUserSurname] = useState("")
     const[userId, setUserId] = useState("")
@@ -52,23 +53,21 @@ const FormRegisterComponent = ()=>{
         }
     }
 
-/*    async function getUserProfile() {
-        const profile = await liff.getProfile()
-        return profile.userId
-      }
-
-    async function main() {
-        await liff.init({ liffId: "2001224156-kwr9NAEL"})
-        if(liff.isLoggedIn()){
-            setUserLineId(getUserProfile())
-            document.getElementById("user-line-id-input").value = getUserProfile()
-        }else{
-          //liff.login()
-        }
-      }
+    useEffect(() => {
+        async function initLine() {
+          await liff.init({ liffId: "2001224156-kwr9NAEL" });
     
-    main()
-*/
+          if (liff.isLoggedIn()) {
+            const lineId = await liff.getProfile().userId;
+            setUserLineId(lineId);
+            document.getElementById("user-line-id-input").value = lineId;
+          } else {
+            liff.login()
+          }
+        }
+    
+        initLine();
+      }, []);
     return (
         <div className='container'>
             <h2>แบบฟอร์มลงทะเบียน</h2>
