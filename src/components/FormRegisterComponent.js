@@ -63,7 +63,7 @@ const FormRegisterComponent = ()=>{
             setUserLineId(lineId);
             document.getElementById("user-line-id-input").value = lineId;
           } else {
-            //liff.login()
+            liff.login()
           }
         }
     
