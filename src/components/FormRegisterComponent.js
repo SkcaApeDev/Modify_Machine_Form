@@ -1,6 +1,7 @@
 import "./FormRegisterComponent.css"
 import {useState, useEffect} from "react"
 import liff from '@line/liff'
+import Tabletop  from "tabletop"
 import axios from "axios"
 
 const FormRegisterComponent = ()=>{
@@ -63,7 +64,7 @@ const FormRegisterComponent = ()=>{
             setUserLineId(lineId);
             document.getElementById("user-line-id-input").value = lineId;
           } else {
-            liff.login()
+            //liff.login()
           }
         }
     
