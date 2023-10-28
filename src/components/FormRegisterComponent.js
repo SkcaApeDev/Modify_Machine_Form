@@ -5,7 +5,6 @@ import axios from "axios"
 
 const FormRegisterComponent = ()=>{
 
-    const[userLineId, setUserLineId] = useState("")
     const[userName, setUserName] = useState("")
     const[userSurname, setUserSurname] = useState("")
     const[userId, setUserId] = useState("")
@@ -51,27 +50,9 @@ const FormRegisterComponent = ()=>{
             setErrorUserPhoneNumber("รูปแบบไม่ถูกต้อง")
             setUserPhoneNumberColor("red")
         }
-        if(userName.replace(/[^A-Za-z]/ig, '') && userSurname.replace(/[^A-Za-z]/ig, '') && userId.length === 5 && userPhoneNumber.match(/^0[0-9]{9}$/)){
-            console.log(userPhoneNumber)
-            const data = {
-                Line_ID: userLineId,
-                ID: userId,
-                Name: userName,
-                Surname: userSurname,
-                Phone_Number: userPhoneNumber
-            }
-            axios.post("https://sheet.best/api/sheets/5918aa35-7d94-406c-ad28-a665ddffeade", data).then((res)=>{
-            console.log(res)
-            setUserLineId("")
-            setUserName("")
-            setUserSurname("")
-            setUserId("")
-            setUserPhoneNumber("")
-        })
-        }
     }
 
-    async function getUserProfile() {
+/*    async function getUserProfile() {
         const profile = await liff.getProfile()
         return profile.userId
       }
@@ -82,19 +63,19 @@ const FormRegisterComponent = ()=>{
             setUserLineId(getUserProfile())
             document.getElementById("user-line-id-input").value = getUserProfile()
         }else{
-          liff.login()
+          //liff.login()
         }
       }
     
     main()
-
+*/
     return (
         <div className='container'>
             <h2>แบบฟอร์มลงทะเบียน</h2>
             <form className='form' id='form' onSubmit={validateForm}>
-                <div className='form-control' id='user-line-id'>
-                    <label>Line User ID</label>
-                    <p id="user-line-id-input"><b></b></p>
+                <div className='form-control' id='user-line-id '>
+                    <label>Line ID</label>
+                    <input type='text'></input>
                 </div>
                 <div className='form-control' id='user-name'>
                     <label>ชื่อ</label>
