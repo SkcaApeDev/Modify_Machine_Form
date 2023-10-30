@@ -1,8 +1,6 @@
 import "./FormRegisterComponent.css"
 import {useState, useEffect} from "react"
 import liff from '@line/liff'
-import Tabletop  from "tabletop"
-import axios from "axios"
 
 const FormRegisterComponent = ()=>{
 
@@ -22,7 +20,7 @@ const FormRegisterComponent = ()=>{
     const [userIdColor, setUserIdColor] = useState("")
     const [userPhoneNumberColor, setUserPhoneNumberColor] = useState("")
 
-    const validateForm = (e)=>{
+    const validateForm = async(e)=>{
         e.preventDefault();
         if(userName.replace(/[^A-Za-z]/ig, '')){
             setErrorUserName("")
@@ -51,8 +49,43 @@ const FormRegisterComponent = ()=>{
         }else{
             setErrorUserPhoneNumber("รูปแบบไม่ถูกต้อง")
             setUserPhoneNumberColor("red")
-        }
+        }if(userName.replace(/[^A-Za-z]/ig, '') && userSurname.replace(/[^A-Za-z]/ig, '') && userId.length === 5 && userPhoneNumber.match(/^0[0-9]{9}$/)){
+
+            const data = {
+                SheetName: 'User',
+                Line_ID: userLineId,
+                ID: userId,
+                Name: userName,
+                Surname: userSurname,
+                Phone_Number: formatPhoneNumber(userPhoneNumber)
+              };
+              try {
+                const response = await fetch('https://script.google.com/macros/s/AKfycbx4zcuaY6kX645yBTtyKRDUkX8LlP2dEWV9bBZ9DRIthTem7rWA1Zp8YKptmrw_qeNb/exec', {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data),
+                })
+                .then(response => response.text())
+                .then(result => console.log('Result:', result),
+                setUserId(""),
+                setUserName(""),
+                setUserSurname(""),
+                setUserPhoneNumber(""))
+                .catch(error => console.error('Error:', error));
+                } catch (error) {
+                  console.error('Error:', error);
+                  // Handle general error (e.g., network issue)
+                }
+              }
     }
+
+    function formatPhoneNumber(phoneNumber) {
+        // Using regular expressions to add hyphens in the desired format
+        return phoneNumber.replace(/(\d{3})(\d{3})(\d{4})/, '$1-$2-$3');
+      }
 
     useEffect(() => {
         async function initLine() {
