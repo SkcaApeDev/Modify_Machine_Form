@@ -4,7 +4,8 @@ import liff from '@line/liff'
 
 const FormRegisterComponent = ()=>{
 
-    const [userLineId, setUserLineId] = useState("")
+    const[userLineId, setUserLineId] = useState("")
+
     const[userName, setUserName] = useState("")
     const[userSurname, setUserSurname] = useState("")
     const[userId, setUserId] = useState("")
@@ -70,6 +71,7 @@ const FormRegisterComponent = ()=>{
                 })
                 .then(response => response.text())
                 .then(result => console.log('Result:', result),
+                setUserLineId(""),
                 setUserId(""),
                 setUserName(""),
                 setUserSurname(""),
