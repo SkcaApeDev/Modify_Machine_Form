@@ -4,9 +4,9 @@ import FormRequestComponent from "./components/FormRequestComponent.js";
 function App() {
   return (
     <div className="App">
-      <FormRequestComponent>
+      <FormRegisterComponent>
 
-      </FormRequestComponent>
+      </FormRegisterComponent>
     </div>
   );
 }
